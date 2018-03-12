@@ -32,7 +32,7 @@ import sys
 
 fsplitter = snj.FileProcessor()
 
-#Set size of each chunk, for example: 25
+#Set size of each chunk, for example: 25 mb
 p_size = 25
 
 #File to split and subdir where to save chunks
@@ -53,7 +53,7 @@ import sys
 
 fjoiner = snj.FileProcessor()
 
-#Set the size-value for reading chunks
+#Set the size-value for reading chunks, for example: 1024 byte
 readsize = 1024
 
 #Set chunks dir and dest filename

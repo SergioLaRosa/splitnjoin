@@ -4,7 +4,7 @@ Simple module for splitting files into multiple chunks and viceversa (from chunk
 I made splitnjoin for 3 reasons:
 1. Speed-up my uploading sessions (it's better to upload small, multiple files instead of a bigger one; in case of network failure some parts of file are already online)
 2. Surpass my ISP _not-nice_ upload limitations about filesizes.
-3. End the lazyness of a boring sunday
+3. End the laziness of a boring sunday
 
 Splitting and joining methods was tested with different file formats and sizes (for example, a VDI VirtualBox VM sized 8+ Gb) and everything works flawlessy in a resonable amount of time (1/2 minutes) for both split/join phase.
 

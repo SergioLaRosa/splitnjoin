@@ -1,6 +1,19 @@
 # splitnjoin
 Simple module for splitting files into multiple chunks and viceversa (from chunks to original file).
 
+I made splitnjoin for 3 reasons:
+1. Speed-up my uploading sessions (it's better to upload small, multiple files instead of a bigger one; in case of network failure some parts of file are already online)
+2. Surpass my ISP _not-nice_ upload limitations about filesizes.
+3. End the lazyness of a boring sunday
+
+Splitting and joining methods was tested with different file formats and sizes (for example, a VDI VirtualBox VM sized 8+ Gb) and everything works flawlessy in a resonable amount of time (1/2 minutes) for both split/join phase.
+
+TO-DO:
+- Improve splitting and joining methods to speedup the entire process
+- Use multiprocess module to improve performance
+- Using the module for write a basic CLI application and...
+- ...Cross-compile this CLI application for Linux/macOS/Windows (multiplatform-binary)
+
 **Requirements**
 
 A default Python3 installation. That's all. It works on every Linux distro and every Windows version.

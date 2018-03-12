@@ -62,5 +62,5 @@ to_file = "joined_myFile.ext"
 
 absfrom, absto = map(os.path.abspath, [from_dir, to_file])
 print('Joining', absfrom, 'to', absto, 'by', readsize)
-fjoiner._join_file(from_dir, to_file, int(readsize))
+fjoiner._join_file(from_dir, to_file, readsize)
 ```

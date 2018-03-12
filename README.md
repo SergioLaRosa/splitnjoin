@@ -9,7 +9,9 @@ A default Python3 installation. That's all. It works on every Linux distro and e
 
 `pip3 install splitnjoin
 `
+
 **Splitting example**
+
 ```
 import splitnjoin as snj
 import os

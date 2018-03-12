@@ -1,22 +1,23 @@
 import os
 import sys
 
-
 class FileProcessor():
 
     def __init__(self):
         self._kilobytes = 1024
         self._megabytes = self._kilobytes * 1000
 
-    def _split_file(self, from_file, chunk_num, chunk_size, to_dir):
+    def _get_chunk_size(self, data_size):
+        return int(int(data_size) * self._megabytes)
+
+    def _split_file(self, from_file, chunk_size, to_dir):
+        self._part_num = 0
 
         if not os.path.exists(to_dir):
             os.mkdir(to_dir)
         else:
             for fname in os.listdir(to_dir):
                 os.remove(os.path.join(to_dir, fname))
-
-        self._part_num = 0
 
         with open(from_file, 'rb') as self._curr_file:
             while True:

@@ -2,9 +2,11 @@
 Simple module for splitting files into multiple chunks and viceversa (from chunks to original file).
 
 **Requirements**
+
 A default Python3 installation. That's all. It works on every Linux distro and every Windows version.
 
 **Installation**
+
 `pip3 install splitnjoin
 `
 **Splitting example**

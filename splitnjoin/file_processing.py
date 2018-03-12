@@ -1,13 +1,12 @@
 import os
 import sys
 
-_kilobytes_ = 1024
-_megabytes_ = _kilobytes_ * 1000
 
 class FileProcessor():
 
     def __init__(self):
-        self._status = ""
+        self._kilobytes = 1024
+        self._megabytes = self._kilobytes * 1000
 
     def _split_file(self, from_file, chunk_num, chunk_size, to_dir):
 

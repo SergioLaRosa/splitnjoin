@@ -1,6 +1,7 @@
 import os
 import sys
 
+
 class FileProcessor():
 
     def __init__(self):
@@ -19,35 +20,87 @@ class FileProcessor():
             for fname in os.listdir(to_dir):
                 os.remove(os.path.join(to_dir, fname))
 
-        with open(from_file, 'rb') as self._curr_file:
-            while True:
-                self._chunk = self._curr_file.read(chunk_size)
-                if not self._chunk:
-                    break
-                self._part_num += 1
-                self._filename = os.path.join(
-                    to_dir, (str(from_file) + '_part_%04d' %
-                             self._part_num))
+        try:
+            with open(from_file, 'rb') as self._curr_file:
+                while True:
+                    try:
+                        self._chunk = self._curr_file.read(chunk_size)
+                        if not self._chunk:
+                            break
+                    except IOError as read_err:
+                        print("Error: unable to read file chunk(s)!")
+                        print("Details:", read_err)
+                        sys.exit()
 
-                with open(self._filename, 'wb') as self._fileobj:
-                    self._fileobj.write(self._chunk)
+                    self._part_num += 1
 
-        return self._part_num
+                    try:
+                        self._filename = os.path.join(
+                            to_dir, (str(from_file) + '_part_%04d' %
+                                     self._part_num))
+                    except OSError as os_err:
+                        print("Error: unable to prepare chunk(s) path!")
+                        print("Details:", os_err)
+                        sys.exit()
+                    try:
+                        with open(self._filename, 'wb') as self._fileobj:
+                            self._fileobj.write(self._chunk)
+                    except IOError as write_err:
+                        print("Error: unable to write chunk(s)!")
+                        print("Details:", write_err)
+                        sys.exit()
+
+            return self._part_num
+
+        except FileNotFoundError:
+            print("Error: file", _curr_file, "not found")
+            sys.exit()
 
     def _join_file(self, from_dir, to_file, readsize):
+        try:
+            with open(to_file, 'wb') as self._output:
+                try:
+                    self._parts = os.listdir(from_dir)
+                    self._parts.sort()
+                except OSError as os_err:
+                    print("Error: unable to list chunks!")
+                    print("Details:", os_err)
+                    sys.exit()
 
-        with open(to_file, 'wb') as self._output:
-            self._parts = os.listdir(from_dir)
-            self._parts.sort()
+                for self._filename in self._parts:
+                    try:
+                        self._filepath = os.path.join(from_dir, self._filename)
+                    except OSError as os_err:
+                        print("Error: unable to preapare joined file path!")
+                        print("Details:", os_err)
+                        sys.exit()
+                    try:
+                        with open(self._filepath, 'rb') as self._fileobj:
+                            while True:
+                                try:
+                                    self._filebytes = self._fileobj.read(
+                                        int(readsize))
+                                    if not self._filebytes:
+                                        break
+                                except IOError as read_err:
+                                    print("Error: unable to read chunk(s)!")
+                                    print("Details:", read_err)
+                                    sys.exit()
+                                try:
+                                    self._output.write(self._filebytes)
+                                except IOError as write_err:
+                                    print("Error: unable to write joined file!")
+                                    print("Details:", write_err)
+                                    sys.exit()
 
-            for self._filename in self._parts:
-                self._filepath = os.path.join(from_dir, self._filename)
-                self._fileobj = open(self._filepath, 'rb')
+                            self._fileobj.close()
 
-                while True:
-                    self._filebytes = self._fileobj.read(readsize)
-                    if not self._filebytes:
-                        break
-                    self._output.write(self._filebytes)
+                    except IOError as read_err:
+                        print("Error: unable to find chunk path!")
+                        print("Details:", read_err)
+                        sys.exit()
 
-                self._fileobj.close()
+        except IOError as write_err:
+            print("Error: unable to prepare joined file!")
+            print("Details:", write_err)
+            sys.exit()

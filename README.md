@@ -6,11 +6,12 @@ I made splitnjoin for 3 reasons:
 2. Surpass my ISP _not-nice_ upload limitations about filesizes.
 3. End the laziness of a boring sunday
 
-Splitting and joining methods were **tested** with different file formats and sizes (for example, a VDI VirtualBox VM sized 8+ Gb) and everything works flawlessy in a resonable amount of time (1/2 minutes) for both split/join phase.
+Splitting and joining methods were **tested** with different file formats and sizes (for example, a VDI VirtualBox VM sized 8+ Gb) and everything works flawlessy in a resonable amount of time (1/2 minutes) for both split/join phases.
+See below for **Performance tests**.
 
 TO-DO:
 - Improve splitting and joining methods to speedup the entire process
-- Use multiprocess module to improve performance
+- Use multiprocess module to improve performance (if possibile, *i'm looking at you, I/O interface*)
 - Using the module for write a basic CLI application and...
 - ...Cross-compile this CLI application for Linux/macOS/Windows (multiplatform-binary)
 
@@ -20,8 +21,7 @@ A default Python3 installation. That's all. It works on every Linux distro and e
 
 **Installation**
 
-`pip3 install splitnjoin
-`
+`pip3 install splitnjoin`
 
 **Splitting example**
 
@@ -42,10 +42,10 @@ to_dir = "splitting_dir"
 absfrom, absto = map(os.path.abspath, [from_file, to_dir])
 print('Splitting', absfrom, 'to', absto, 'by', p_size)
 #Split now
-fsplitter._split_file(from_file, fsplitter._get_chunk_size(p_size), to_dir)
+fsplitter._split_file(from_file, p_size, to_dir)
 ```
-
 **Joining example**
+
 ```
 import splitnjoin as snj
 import os
@@ -53,8 +53,8 @@ import sys
 
 fjoiner = snj.FileProcessor()
 
-#Set the size-value for reading chunks, for example: 1024 byte
-readsize = 1024
+#Set the size-value for reading chunks, for example: 25 mb
+readsize = 25
 
 #Set chunks dir and dest filename
 from_dir = "splitting_dir"
@@ -63,4 +63,29 @@ to_file = "joined_myFile.ext"
 absfrom, absto = map(os.path.abspath, [from_dir, to_file])
 print('Joining', absfrom, 'to', absto, 'by', readsize)
 fjoiner._join_file(from_dir, to_file, readsize)
+```
+
+**Performance Tests**
+
+I made a simple test&benchmark tool, look at the file `splitnjoin_benchmark.py`. Run it to have a similar output:
+```
+[!]'splitnjoin' ver. 0.41 Benchmark&Test tool
+
+[+] Generating fake binary file of 1 GB...
+[+] Please, wait...
+[+] fake_data.bin written.
+[+] Writing time:  13.059494661999452
+
+[+] Splitting /home/sergio/fake_data.bin to /home/sergio/test by 250 mb...
+[+] Please, wait...
+[+] Splitting time:  11.533364240999617
+
+[+] Joining /home/sergio/test to /home/sergio/joined_fake_data.bin by 250 mb...
+[+] Please, wait...
+[+] Joining time:  15.895961958999578
+
+[+] md5: 40fb2889e5d57bc50def0500efe87d14 for fake_data.bin
+[+] md5: 40fb2889e5d57bc50def0500efe87d14 for joined_fake_data.bin
+
+[+] Integrity Check OK, the files are identical.
 ```

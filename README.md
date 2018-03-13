@@ -25,7 +25,7 @@ A default Python3 installation. That's all. It works on every Linux distro and e
 
 **Splitting example**
 
-```
+```Python
 import splitnjoin as snj
 import os
 import sys
@@ -46,7 +46,7 @@ fsplitter._split_file(from_file, p_size, to_dir)
 ```
 **Joining example**
 
-```
+```Python
 import splitnjoin as snj
 import os
 import sys

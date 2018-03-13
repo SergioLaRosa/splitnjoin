@@ -40,7 +40,7 @@ from_file = "myFile.ext"
 to_dir = "splitting_dir"
 
 absfrom, absto = map(os.path.abspath, [from_file, to_dir])
-print('Splitting', absfrom, 'to', absto, 'by', chunksize)
+print('Splitting', absfrom, 'to', absto, 'by', p_size)
 #Split now
 fsplitter._split_file(from_file, _get_chunk_size(p_size), to_dir)
 ```

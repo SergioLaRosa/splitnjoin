@@ -70,6 +70,8 @@ fjoiner._join_file(from_dir, to_file, readsize)
 ## Performance tests
 
 I made a simple test&benchmark tool. Run it like this: `python3 -m splitnjoin.splitnjoin_benchmark.py`. 
+
+On my notebook (Intel i3 dual core, 8 GB Ram, 500 GB 5400rpm disk, Linux Mint 18.3) this is the output:
  
 ```
 [!]'splitnjoin' ver. 0.42 Benchmark&Test tool

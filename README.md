@@ -15,14 +15,15 @@ TO-DO:
 - Using the module for write a basic CLI application and...
 - ...Cross-compile this CLI application for Linux/macOS/Windows (multiplatform-binary)
 
-**Requirements**
+## Requirements
 
 A default Python3 installation. That's all. It works on every Linux distro and every Windows version.
 
-**Installation**
+## Installation
 
 `pip3 install splitnjoin`
 
+## Examples
 **Splitting example**
 
 ```Python
@@ -65,7 +66,7 @@ print('Joining', absfrom, 'to', absto, 'by', readsize)
 fjoiner._join_file(from_dir, to_file, readsize)
 ```
 
-**Performance Tests**
+## Performance Tests
 
 I made a simple test&benchmark tool, look at the file `splitnjoin_benchmark.py`. Run it to have a similar output:
 ```

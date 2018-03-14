@@ -6,18 +6,19 @@ I made splitnjoin for 3 reasons:
 2. Surpass my ISP _not-nice_ upload limitations about filesizes.
 3. End the laziness of a boring sunday
 
-Splitting and joining methods were **tested** with different file formats and sizes (for example, a VDI VirtualBox VM sized 8+ Gb) and everything works flawlessy in a resonable amount of time (1/2 minutes) for both split/join phases.
-See below for **Performance tests**.
+Splitting and joining methods were **tested** with different file formats and sizes and everything works flawlessy in a resonable amount of time (1/2 minutes) for both split/join phases. Just for comparison: splitting a .vdi VM sized 8+Gb on my i3/8G notebook takes 177 seconds circa. 
 
-TO-DO:
-- Improve splitting and joining methods to speedup the entire process
-- Use multiprocess module to improve performance (if possibile, *i'm looking at you, I/O interface*)
-- Using the module for write a basic CLI application and...
-- ...Cross-compile this CLI application for Linux/macOS/Windows (multiplatform-binary)
+Important: **don't use splitnjoin in production enviroments**, of course.
+
+To read benchmark and performance tests, see below.
 
 ## Requirements
 
 A default Python3 installation. That's all. It works on every Linux distro and every Windows version.
+
+Regarding **hardware reqs**: splitting and joining huge files are **CPU/RAM intensive tasks** and 'splitnjoin' is currently in its early days so don't expect big updates regarding resource optmization soon (I'll working on it, that's for sure).
+
+Put it simple: if you have a system with a fairly capable CPU and 4/8 GB RAM you shouldn't have any problem splitting huge files (for example, 8+GB on hard disk).
 
 ## Installation
 
@@ -66,7 +67,7 @@ print('Joining', absfrom, 'to', absto, 'by', readsize)
 fjoiner._join_file(from_dir, to_file, readsize)
 ```
 
-## Performance Tests
+## Performance tests
 
 I made a simple test&benchmark tool. Run it like this: `python3 -m splitnjoin.splitnjoin_benchmark.py`. 
  
@@ -91,3 +92,8 @@ I made a simple test&benchmark tool. Run it like this: `python3 -m splitnjoin.sp
 
 [+] Integrity Check OK, the files are identical.
 ```
+TO-DO:
+- Improve splitting and joining methods to speedup the entire process
+- Use multiprocess module to improve performance (if possibile, *i'm looking at you, I/O interface*)
+- Using the module for write a basic CLI application and...
+- ...Cross-compile this CLI application for Linux/macOS/Windows (multiplatform-binary)

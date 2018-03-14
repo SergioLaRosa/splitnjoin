@@ -68,9 +68,10 @@ fjoiner._join_file(from_dir, to_file, readsize)
 
 ## Performance Tests
 
-I made a simple test&benchmark tool, look at the file `splitnjoin_benchmark.py`. Run it to have a similar output:
+I made a simple test&benchmark tool. Run it like this: `python3 -m splitnjoin.splitnjoin_benchmark.py`. 
+ 
 ```
-[!]'splitnjoin' ver. 0.41 Benchmark&Test tool
+[!]'splitnjoin' ver. 0.42 Benchmark&Test tool
 
 [+] Generating fake binary file of 1 GB...
 [+] Please, wait...

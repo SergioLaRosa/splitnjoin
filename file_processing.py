@@ -30,8 +30,9 @@ class FileSplit:
                 self._ext += 1
 
 
-    def combineFile(self):
-        with open('combine.bin', 'ab') as self._file:
+    def combineFile(self, nuovoFile):
+        open(nuovoFile, 'wb')
+        with open(nuovoFile, 'ab') as self._file:
             while True:
                 try:
                     self._fileTemp = open(self._nomeFile + '.%03d' % self._ext, 'rb')

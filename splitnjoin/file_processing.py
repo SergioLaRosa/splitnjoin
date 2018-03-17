@@ -8,7 +8,7 @@ class FileProcessor:
         self._kilobytes = 1024
         self._megabytes = self._kilobytes * 1000
 
-    def get_chunk_size(self, data_size):
+    def _get_chunk_size(self, data_size):
         return int(int(data_size) * self._megabytes)
 
     def split_file(self, from_file, chunk_size, to_dir):

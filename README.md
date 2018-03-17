@@ -44,7 +44,7 @@ to_dir = "splitting_dir"
 absfrom, absto = map(os.path.abspath, [from_file, to_dir])
 print('Splitting', absfrom, 'to', absto, 'by', p_size)
 #Split now
-fsplitter._split_file(from_file, p_size, to_dir)
+fsplitter.split_file(from_file, p_size, to_dir)
 ```
 **Joining example**
 
@@ -64,7 +64,7 @@ to_file = "joined_myFile.ext"
 
 absfrom, absto = map(os.path.abspath, [from_dir, to_file])
 print('Joining', absfrom, 'to', absto, 'by', readsize)
-fjoiner._join_file(from_dir, to_file, readsize)
+fjoiner.join_file(from_dir, to_file, readsize)
 ```
 
 ## Performance tests

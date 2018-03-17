@@ -34,7 +34,7 @@ absfrom, absto = map(os.path.abspath, [from_file, to_dir])
 print('[+] Splitting', absfrom, 'to', absto, 'by', p_size, 'mb...')
 print('[+] Please, wait...')
 start = timer()
-fsplitter._split_file(from_file, p_size, to_dir)
+fsplitter.split_file(from_file, p_size, to_dir)
 end = timer()
 print('[+] Splitting time: ', end - start)
 
@@ -43,7 +43,7 @@ absfrom, absto = map(os.path.abspath, [from_dir, to_file])
 print('[+] Joining', absfrom, 'to', absto, 'by', readsize, 'mb...')
 print("[+] Please, wait...")
 start = timer()
-fjoiner._join_file(from_dir, to_file, readsize)
+fjoiner.join_file(from_dir, to_file, readsize)
 end = timer()
 print("[+] Joining time: ", end - start)
 
@@ -60,4 +60,6 @@ print("[+] md5:", digests[0], "for", from_file)
 print("[+] md5:", digests[1], "for", to_file)
 if digests[0]==digests[1]:
     print("\n[+] Integrity Check OK, the files are identical.")
+else:
+	print("\n[!] Error: Check FAILED! Files are diffent (prob. corruption/losses)")
 	

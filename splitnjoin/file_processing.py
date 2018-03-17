@@ -2,16 +2,16 @@ import os
 import sys
 
 
-class FileProcessor():
+class FileProcessor:
 
     def __init__(self):
         self._kilobytes = 1024
         self._megabytes = self._kilobytes * 1000
 
-    def _get_chunk_size(self, data_size):
+    def get_chunk_size(self, data_size):
         return int(int(data_size) * self._megabytes)
 
-    def _split_file(self, from_file, chunk_size, to_dir):
+    def split_file(self, from_file, chunk_size, to_dir):
         self._part_num = 0
 
         if not os.path.exists(to_dir):
@@ -60,7 +60,7 @@ class FileProcessor():
         except KeyboardInterrupt:
             print("[!] Script interrupted (ctrl+C)")
             
-    def _join_file(self, from_dir, to_file, readsize):
+    def join_file(self, from_dir, to_file, readsize):
         try:
             with open(to_file, 'wb') as self._output:
                 try:

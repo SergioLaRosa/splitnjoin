@@ -1,20 +1,32 @@
 import splitnjoin as snj
 import os
 import sys
+import shutil
 import hashlib
 import pkg_resources
 from timeit import default_timer as timer
 
+def generate_file_md5(filename, blocksize):
+    m = hashlib.md5()
+    with open(filename, "rb" ) as f:
+        while True:
+            buf = f.read(blocksize)
+            if not buf:
+                break
+            m.update( buf )
+    return m.hexdigest()
 
 fsplitter = snj.FileProcessor()
 fjoiner = snj.FileProcessor()
 digests = list()
 
+blocksize = 250000000
+
 p_size = 250
 from_file = "fake_data.bin"
 to_dir = "test"
 
-readsize = 250
+read_size = 250
 from_dir = "test"
 to_file = "joined_fake_data.bin"
 
@@ -40,26 +52,34 @@ print('[+] Splitting time: ', end - start)
 
 print("")
 absfrom, absto = map(os.path.abspath, [from_dir, to_file])
-print('[+] Joining', absfrom, 'to', absto, 'by', readsize, 'mb...')
+print('[+] Joining', absfrom, 'to', absto, 'by', read_size, 'mb...')
 print("[+] Please, wait...")
 start = timer()
-fjoiner.join_file(from_dir, to_file, readsize)
+fjoiner.join_file(from_dir, read_size, to_file)
 end = timer()
 print("[+] Joining time: ", end - start)
 
-for filename in [from_file, to_file]:
-    hasher = hashlib.md5()
-    with open(filename, 'rb') as f:
-        buf = f.read(256000)
-        hasher.update(buf)
-        a = hasher.hexdigest()
-        digests.append(a)
-
 print("")
+print("[+] Calculating md5 hash for both files...")
+print("[+] Please wait...")
+start = timer()
+digests.append(generate_file_md5(from_file, blocksize))
+digests.append(generate_file_md5(to_file, blocksize))
 print("[+] md5:", digests[0], "for", from_file)
 print("[+] md5:", digests[1], "for", to_file)
+end = timer()
+print("[+] Hashing time: ", end - start)
 if digests[0]==digests[1]:
     print("\n[+] Integrity Check OK, the files are identical.")
 else:
-	print("\n[!] Error: Check FAILED! Files are diffent (prob. corruption/losses)")
+    print("\n[!] Error: Check FAILED! Files are diffent (prob. corruption/losses)")
+
+print("")
+print("[+] Removing test files...")
+for filename in [from_file, to_file]:
+    os.remove(filename)
+    print("[+]", filename, " removed.")
+print("[+] Removing test dir...")
+shutil.rmtree(from_dir, ignore_errors=True)
+print("[+] Test directory removed.")
 	

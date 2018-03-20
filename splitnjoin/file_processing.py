@@ -1,11 +1,12 @@
 import os
 import sys
+import hashlib
 
 
 class FileProcessor:
 
     def __init__(self):
-        self._kilobytes = 1024
+        self._kilobytes = 1000
         self._megabytes = self._kilobytes * 1000
 
     def _get_chunk_size(self, data_size):
@@ -52,7 +53,6 @@ class FileProcessor:
                         print("[!] Error: unable to write chunk(s)!")
                         print("[*] Details:", write_err)
                         
-
             return self._part_num
 
         except FileNotFoundError:
@@ -60,7 +60,7 @@ class FileProcessor:
         except KeyboardInterrupt:
             print("[!] Script interrupted (ctrl+C)")
             
-    def join_file(self, from_dir, to_file, readsize):
+    def join_file(self, from_dir, readsize, to_file):
         try:
             with open(to_file, 'wb') as self._output:
                 try:

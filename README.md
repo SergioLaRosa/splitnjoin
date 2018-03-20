@@ -6,11 +6,15 @@ I made splitnjoin for 3 reasons:
 2. Surpass my ISP _not-nice_ upload limitations about filesizes.
 3. End the laziness of a boring sunday
 
-Splitting and joining methods were **tested** with different file formats and sizes and everything works flawlessy in a resonable amount of time (1/2 minutes) for both split/join phases. Just for comparison: splitting a .vdi VM sized 8+Gb on my i3/8G notebook takes 177 seconds circa. 
+Performance of splitting/joining phases can vary greatly **depending on hardware configuration** (especially the hdd speed). 
+
+For istance, let's try to split a Virtual Box virtual machine sized 8.5 GB (.vdi): 
+- a system equipped with AMD Ryzen 7, 16 GB ddr4 and an SSD.MD disk can split the VM, in 34 chunks of 250MB each one, in less than 20 seconds... 
+- ...as opposed to my old notebook (i3, 8GB ddr3 and 5400rpm disk) that requires 4+ minutes to split it with the same parameters.
+
+To read benchmark and performance tests, read sections below ("Perfomance tests").
 
 Important: **don't use splitnjoin in production enviroments**, of course.
-
-To read benchmark and performance tests, see below.
 
 ## Requirements
 

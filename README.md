@@ -95,7 +95,7 @@ On my notebook (Intel i3 dual core, 8 GB Ram, 500 GB 5400rpm disk, Linux Mint 18
 [+] Integrity Check OK, the files are identical.
 ```
 TO-DO:
-- Improve splitting and joining methods to speedup the entire process
-- Use multiprocess module to improve performance (if possibile, *i'm looking at you, I/O interface*)
+- ~~Improve splitting and joining methods to speedup the entire process~~ (moved to [splitnjoiny project](https://github.com/SNN01/splitnjoiny))
+- ~~Use multiprocess module to improve performance (if possibile, *i'm looking at you, I/O interface*)~~ (moved to [splitnjoiny project](https://github.com/SNN01/splitnjoiny))
 - Using the module for write a basic CLI application and...
 - ...Cross-compile this CLI application for Linux/macOS/Windows (multiplatform-binary)

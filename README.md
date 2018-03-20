@@ -8,7 +8,7 @@ I made splitnjoin for 3 reasons:
 
 Performance of splitting/joining phases can vary greatly **depending on hardware configuration** (especially the hdd speed). 
 
-For istance, let's try to split a Virtual Box virtual machine sized 8.5 GB (.vdi): 
+For istance, let's try to split a Virtual Box virtual machine sized 8.5+ GB (.vdi): 
 - a system equipped with AMD Ryzen 7, 16 GB ddr4 and an SSD.MD disk can split the VM, in 34 chunks of 250MB each one, in less than 20 seconds... 
 - ...as opposed to my old notebook (i3, 8GB ddr3 and 5400rpm disk) that requires 4+ minutes to split it with the same parameters.
 
@@ -68,7 +68,8 @@ to_file = "joined_myFile.ext"
 
 absfrom, absto = map(os.path.abspath, [from_dir, to_file])
 print('Joining', absfrom, 'to', absto, 'by', readsize)
-fjoiner.join_file(from_dir, to_file, readsize)
+#Join now
+fjoiner.join_file(from_dir, readsize, to_file)
 ```
 
 ## Performance tests
@@ -78,25 +79,34 @@ I made a simple test&benchmark tool. Run it like this: `python3 -m splitnjoin.sn
 On my notebook (Intel i3 dual core, 8 GB Ram, 500 GB 5400rpm disk, Linux Mint 18.3) this is the output:
  
 ```
-[!]'splitnjoin' ver. 0.42 Benchmark&Test tool
+[!]'splitnjoin' ver. 0.51 Benchmark&Test tool
 
 [+] Generating fake binary file of 1 GB...
 [+] Please, wait...
 [+] fake_data.bin written.
-[+] Writing time:  13.059494661999452
+[+] Writing time:  13.388530897998862
 
-[+] Splitting /home/sergio/fake_data.bin to /home/sergio/test by 250 mb...
+[+] Splitting /home/sergio/Scrivania/splitnjoin/fake_data.bin to /home/sergio/Scrivania/splitnjoin/test by 250 mb...
 [+] Please, wait...
-[+] Splitting time:  11.533364240999617
+[+] Splitting time:  12.705547745999866
 
-[+] Joining /home/sergio/test to /home/sergio/joined_fake_data.bin by 250 mb...
+[+] Joining /home/sergio/Scrivania/splitnjoin/test to /home/sergio/Scrivania/splitnjoin/joined_fake_data.bin by 250 mb...
 [+] Please, wait...
-[+] Joining time:  15.895961958999578
+[+] Joining time:  15.447953824999786
 
-[+] md5: 40fb2889e5d57bc50def0500efe87d14 for fake_data.bin
-[+] md5: 40fb2889e5d57bc50def0500efe87d14 for joined_fake_data.bin
+[+] Calculating md5 hash for both files...
+[+] Please wait...
+[+] md5: 98a1c12f80bc9344846e75dc3b406611 for fake_data.bin
+[+] md5: 98a1c12f80bc9344846e75dc3b406611 for joined_fake_data.bin
+[+] Hashing time:  7.4639659309996205
 
 [+] Integrity Check OK, the files are identical.
+
+[+] Removing test files...
+[+] fake_data.bin  removed.
+[+] joined_fake_data.bin  removed.
+[+] Removing test dir...
+[+] Test directory removed.
 ```
 TO-DO:
 - ~~Improve splitting and joining methods to speedup the entire process~~ (moved to [splitnjoiny project](https://github.com/SNN01/splitnjoiny))

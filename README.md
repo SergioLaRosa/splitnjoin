@@ -20,7 +20,7 @@ Important: **don't use splitnjoin in production enviroments**, of course.
 
 A default Python3 installation. That's all. It works on every Linux distro and every Windows version.
 
-Regarding **hardware reqs**: splitting and joining huge files are **CPU/RAM intensive tasks** and 'splitnjoin' is currently in its early days so don't expect big updates regarding resource optmization soon (I'll working on it, that's for sure).
+About **hardware reqs**: splitting and joining huge files are **CPU/RAM intensive tasks** and 'splitnjoin' is currently in its early days so don't expect big updates regarding resource optmization soon (I'll working on it, that's for sure).
 
 Put it simple: if you have a system with a fairly capable CPU and 4/8 GB RAM you shouldn't have any problem splitting huge files (for example, 8+GB on hard disk).
 

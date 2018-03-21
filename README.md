@@ -2,15 +2,15 @@
 Simple module for splitting files into multiple chunks and viceversa (from chunks to original file).
 
 I made splitnjoin for 3 reasons:
-1. Speed-up my uploading sessions (it's better to upload small, multiple files instead of a bigger one; in case of network failure some parts of file are already online)
-2. Surpass my ISP _not-nice_ upload limitations about filesizes.
+1. Speed-up uploading sessions (it is better to upload small, multiple files instead of a larger one; in case of network failure some parts of file are already online)
+2. Surpass ISP _not-nice_ upload limitations about filesizes
 3. End the laziness of a boring sunday
 
-Performance of splitting/joining phases can vary greatly **depending on hardware configuration** (especially the hdd speed). 
+Performance of splitting/joining phases can vary greatly **depending on hardware configuration** (especially the HDD speed). 
 
-For istance, let's try to split a Virtual Box virtual machine sized 8.5+ GB (.vdi): 
-- a system equipped with AMD Ryzen 7, 16 GB ddr4 and an SSD.MD disk can split the VM, in 34 chunks of 250MB each one, in less than 20 seconds... 
-- ...as opposed to my old notebook (i3, 8GB ddr3 and 5400rpm disk) that requires 4+ minutes to split it with the same parameters.
+For instance, let's try to split a Virtual Box virtual machine sized 8.5+ GB (.vdi): 
+- A system equipped with AMD Ryzen 7, 16 GB DDR4 and an SSD.MD can split the VM in 34 chunks of 250MB each one, in less than 20 seconds
+- An older notebook (i3, 8GB DDR3, and 5400 RPM HDD) requires 4+ minutes to split it with the same parameters
 
 To read benchmark and performance tests, read sections below ("Perfomance tests").
 
@@ -18,13 +18,14 @@ Important: **don't use splitnjoin in production enviroments**, of course.
 
 ## Requirements
 
-A default Python3 installation. That's all. It works on every Linux distro and every Windows version.
+A default Python3 installation. It works on every Linux distro and every Windows version.
 
-About **hardware reqs**: splitting and joining huge files are **CPU/RAM intensive tasks** and 'splitnjoin' is currently in its early days so don't expect big updates regarding resource optmization soon (I'll working on it, that's for sure).
+About **hardware requirements**: splitting and joining huge files are **CPU/RAM intensive tasks** and 'splitnjoin' is currently in its early days so don't expect big updates regarding resource optmization soon (I am working on it, that's for sure).
 
-Put it simple: if you have a system with a fairly capable CPU and 4/8 GB RAM you shouldn't have any problem splitting huge files (for example, 8+GB on hard disk).
+To put it simple: if you have a system with a fairly capable CPU and 4/8 GB RAM you shouldn't have any problem splitting huge files (for example, 8+ GB on hard disk).
 
 ## Installation
+Install using [pip](https://pip.pypa.io/en/stable/quickstart/)
 
 `pip3 install splitnjoin`
 
@@ -74,9 +75,9 @@ fjoiner.join_file(from_dir, readsize, to_file)
 
 ## Performance tests
 
-I made a simple test&benchmark tool. Run it like this: `python3 -m splitnjoin.snj_benchmark.py`. 
+I made a simple testing and benchmarking tool. Run it like this: `python3 -m splitnjoin.snj_benchmark.py`. 
 
-On my notebook (Intel i3 dual core, 8 GB Ram, 500 GB 5400rpm disk, Linux Mint 18.3) this is the output:
+On my notebook (Intel i3 dual core, 8 GB RAM, 500 GB 5400 RPM disk, Linux Mint 18.3) this is the output:
  
 ```
 [!]'splitnjoin' ver. 0.51 Benchmark&Test tool
@@ -108,7 +109,7 @@ On my notebook (Intel i3 dual core, 8 GB Ram, 500 GB 5400rpm disk, Linux Mint 18
 [+] Removing test dir...
 [+] Test directory removed.
 ```
-TO-DO:
+## TO-DO:
 - ~~Improve splitting and joining methods to speedup the entire process~~ (moved to [splitnjoiny project](https://github.com/SNN01/splitnjoiny))
 - ~~Use multiprocess module to improve performance (if possibile, *i'm looking at you, I/O interface*)~~ (moved to [splitnjoiny project](https://github.com/SNN01/splitnjoiny))
 - Using the module for write a basic CLI application and...

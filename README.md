@@ -79,8 +79,6 @@ I made a simple test&benchmark tool. Run it like this: `python3 -m splitnjoin.sn
 On my notebook (Intel i3 dual core, 8 GB Ram, 500 GB 5400rpm disk, Linux Mint 18.3) this is the output:
  
 ```
-[!]'splitnjoin' ver. 0.51 Benchmark&Test tool
-
 [+] Generating fake binary file of 1 GB...
 [+] Please, wait...
 [+] fake_data.bin written.

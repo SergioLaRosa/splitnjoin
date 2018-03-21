@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
     name='splitnjoin',
-    version='0.51',
-    description='Simple module for splitting files into multiple chunks and viceversa (from chunks to original file)',
+    version='0.60',
+    description='Simple module for splitting binary files into multiple chunks and viceversa (from chunks to original file)',
     url='https://github.com/SergioLaRosa/splitnjoin',
     author='Sergio La Rosa',
     author_email='sergio.larosa89@gmail.com',

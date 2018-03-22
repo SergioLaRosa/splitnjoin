@@ -1,3 +1,7 @@
+# Written by Sergio La Rosa (sergio.larosa89@gmail.com)
+# Part of "splitnjoin" package
+# https://github.com/SergioLaRosa/splitnjoin
+
 import splitnjoin as snj
 import os
 import sys
@@ -6,15 +10,17 @@ import hashlib
 import pkg_resources
 from timeit import default_timer as timer
 
+
 def generate_file_md5(filename, blocksize):
     m = hashlib.md5()
-    with open(filename, "rb" ) as f:
+    with open(filename, "rb") as f:
         while True:
             buf = f.read(blocksize)
             if not buf:
                 break
-            m.update( buf )
+            m.update(buf)
     return m.hexdigest()
+
 
 fsplitter = snj.FileProcessor()
 fjoiner = snj.FileProcessor()
@@ -33,7 +39,7 @@ print('[+] Please, wait...')
 start = timer()
 try:
     with open(os.path.abspath(from_file), 'wb') as fout:
-        fout.write(os.urandom(1073741824)) 
+        fout.write(os.urandom(1073741824))
     end = timer()
     print("[+]", from_file, "written.")
     print('[+] Writing time: ', end - start)
@@ -63,15 +69,16 @@ try:
     print("[+] md5:", digests[1], "for", to_file)
     end = timer()
     print("[+] Hashing time: ", end - start)
-    if digests[0]==digests[1]:
+    if digests[0] == digests[1]:
         print("\n[+] Integrity Check OK, the files are identical.")
     else:
-        print("\n[!] Error: Check FAILED! Files are diffent (prob. corruption/losses)")
+        print(
+            "\n[!] Error: Check FAILED! Files are diffent (prob. corruption/losses)")
 except KeyboardInterrupt:
     print("[!] Script stopped (Ctrl+C).")
     os.remove(from_file)
     shutil.rmtree(from_dir, ignore_errors=True)
-    sys.exit()    
+    sys.exit()
 print("")
 print("[+] Removing test files...")
 for filename in [from_file, to_file]:
@@ -80,4 +87,3 @@ for filename in [from_file, to_file]:
 print("[+] Removing test dir...")
 shutil.rmtree(from_dir, ignore_errors=True)
 print("[+] Test directory removed.")
-	

@@ -42,9 +42,6 @@ class FileProcessor:
                             self._real_size)
                         if not self._chunk:
                             break
-                    except PermissionError as perm_err:
-                        logging.error(str(perm_err))
-                        break
                     except MemoryError as mem_err:
                         logging.error(str(mem_err))
                         break
@@ -77,8 +74,6 @@ class FileProcessor:
             logging.error(str(os_err))
         except FileNotFoundError as notfnd_err:
             logging.error(str(notfnd_err))
-        except Exception as generic_err:
-            logging.error(str(generic_err))
 
     def join_file(self, from_dir, chunk_size, to_file):
         self._real_size = self._get_chunk_size(chunk_size)
@@ -90,8 +85,6 @@ class FileProcessor:
                     self._parts.sort()
                 except OSError as os_err:
                     logging.error(str(os_err))
-                except PermissionError as perm_err:
-                    logging.error(str(perm_err))
                 if self._parts:
                     for self._filename in self._parts:
                         self._filepath = os.path.join(from_dir, self._filename)
@@ -103,9 +96,6 @@ class FileProcessor:
                                             self._real_size)
                                         if not self._filebytes:
                                             break
-                                    except PermissionError as perm_err:
-                                        logging.error(str(perm_err))
-                                        break
                                     except MemoryError as mem_err:
                                         logging.error(str(mem_err))
                                         break
@@ -120,18 +110,12 @@ class FileProcessor:
                                     except IOError as write_err:
                                         logging.error(str(write_err))
                                         break
-                                    except PermissionError as perm_err:
-                                        logging.error(str(perm_err))
-                                        break
                                     except OSError as os_err:
                                         logging.error(str(os_err))
                                         break
                                 self._fileobj.close()
                         except PermissionError as perm_err:
                             logging.error(str(perm_err))
-                            break
-                        except FileNotFoundError as notfnd_err:
-                            logging.error(str(notfnd_err))
                             break
                         except IOError as read_err:
                             logging.error(str(read_err))

@@ -5,6 +5,8 @@
 import os
 import sys
 import logging
+import hashlib
+import math
 
 
 class FileProcessor:
@@ -16,9 +18,37 @@ class FileProcessor:
     def _get_chunk_size(self, data_size):
         return int(int(data_size) * self._megabytes)
 
-    def split_file(self, from_file, chunk_size, to_dir):
-        self._part_num = 0
+    def _get_part_size(self, tot_size, tot_parts):
+        return (math.ceil(tot_size / tot_parts))
+
+    def gen_md5(self, filename, blocksize):
+        self._blocksize = self._get_chunk_size(blocksize)
+        self._m = hashlib.md5()
+        with open(filename, "rb") as self._f:
+            while True:
+                self._buf = self._f.read(self._blocksize)
+                if not self._buf:
+                    break
+                self._m.update(self._buf)
+        return self._m.hexdigest()    
+
+    def split_file_by_parts(self, from_file, tot_parts, to_dir):
+        try:
+            self._fstat = os.stat(from_file)
+        except PermissionError as perm_err:
+            logging.error(str(perm_err))
+        except OSError as os_err:
+            logging.error(str(os_err))
+        self._part_size = self._get_part_size(self._fstat.st_size, tot_parts)
+        self._split_file(from_file, self._part_size, to_dir)
+
+    def split_file_by_size(self, from_file, chunk_size, to_dir):
         self._real_size = self._get_chunk_size(chunk_size)
+        self._split_file(from_file, self._real_size, to_dir)
+
+    def _split_file(self, from_file, chunk_size, to_dir):
+        self._part_num = 0
+        self._real_size = chunk_size
         if not os.path.exists(to_dir):
             try:
                 os.mkdir(to_dir)

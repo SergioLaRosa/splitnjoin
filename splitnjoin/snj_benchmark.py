@@ -6,26 +6,14 @@ import splitnjoin as snj
 import os
 import sys
 import shutil
-import hashlib
 import pkg_resources
 from timeit import default_timer as timer
-
-
-def generate_file_md5(filename, blocksize):
-    m = hashlib.md5()
-    with open(filename, "rb") as f:
-        while True:
-            buf = f.read(blocksize)
-            if not buf:
-                break
-            m.update(buf)
-    return m.hexdigest()
 
 
 fsplitter = snj.FileProcessor()
 fjoiner = snj.FileProcessor()
 digests = list()
-blocksize = 250000000
+blocksize = 250
 p_size = 250
 from_file = "fake_data.bin"
 to_dir = "test"
@@ -48,7 +36,7 @@ try:
     print('[+] Splitting', absfrom, 'to', absto, 'by', p_size, 'mb...')
     print('[+] Please, wait...')
     start = timer()
-    fsplitter.split_file(from_file, p_size, to_dir)
+    fsplitter.split_file_by_size(from_file, p_size, to_dir)
     end = timer()
     print('[+] Splitting time: ', end - start)
     print("")
@@ -63,17 +51,17 @@ try:
     print("[+] Calculating md5 hash for both files...")
     print("[+] Please wait...")
     start = timer()
-    digests.append(generate_file_md5(from_file, blocksize))
-    digests.append(generate_file_md5(to_file, blocksize))
+    digests.append(fsplitter.gen_md5(from_file, blocksize))
+    digests.append(fsplitter.gen_md5(to_file, blocksize))
     print("[+] md5:", digests[0], "for", from_file)
     print("[+] md5:", digests[1], "for", to_file)
     end = timer()
     print("[+] Hashing time: ", end - start)
     if digests[0] == digests[1]:
-        print("\n[+] Integrity Check OK, the files are identical.")
+        print("\n[+] Integrity Check OK: files are identical.")
     else:
         print(
-            "\n[!] Error: Check FAILED! Files are diffent (prob. corruption/losses)")
+            "\n[!] Error: Check FAILED: files are different! (prob. corruption/losses)")
 except KeyboardInterrupt:
     print("[!] Script stopped (Ctrl+C).")
     os.remove(from_file)

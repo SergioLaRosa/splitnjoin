@@ -1,5 +1,5 @@
 # splitnjoin
-Simple module for splitting files into multiple chunks and viceversa (from chunks to original file).
+Simple module for splitting files into multiple chunks/parts and viceversa (from chunks/parts to original file).
 
 I made splitnjoin for 3 reasons:
 1. Speed-up uploading sessions (it is better to upload small, multiple files instead of a larger one; in case of network failure some parts of file are already online)
@@ -30,7 +30,7 @@ Install using [pip](https://pip.pypa.io/en/stable/quickstart/)
 `pip3 install splitnjoin`
 
 ## Examples
-**Splitting example**
+**Splitting by chunk size example**
 
 ```Python
 import splitnjoin as snj
@@ -47,9 +47,30 @@ from_file = "myFile.ext"
 to_dir = "splitting_dir"
 
 absfrom, absto = map(os.path.abspath, [from_file, to_dir])
-print('Splitting', absfrom, 'to', absto, 'by', p_size)
+print('Splitting', absfrom, 'to', absto, 'by', p_size, 'mb...')
 #Split now
 fsplitter.split_file(from_file, p_size, to_dir)
+```
+**Splitting by parts example**
+
+```Python
+import splitnjoin as snj
+import os
+import sys
+
+fsplitter = snj.FileProcessor()
+
+#Set the number of parts you want, for example: 10
+p_num = 10
+
+#File to split and subdir where to save parts
+from_file = "myFile.ext"
+to_dir = "splitting_dir"
+
+absfrom, absto = map(os.path.abspath, [from_file, to_dir])
+print('Splitting', absfrom, 'to', absto, 'in', p_num, 'parts...')
+#Split now
+fsplitter.split_file_by_parts(from_file, p_num, to_dir)
 ```
 **Joining example**
 
@@ -75,7 +96,9 @@ fjoiner.join_file(from_dir, readsize, to_file)
 
 ## Performance tests
 
-I made a simple testing and benchmarking tool. Run it like this: `python3 -m splitnjoin.snj_benchmark.py`. 
+I made a simple testing and benchmarking tool (splitting a binary file into chunks of 250MB each one). 
+
+Run it like this: `python3 -m splitnjoin.snj_benchmark.py`. 
 
 On my notebook (Intel i3 dual core, 8 GB RAM, 500 GB 5400 RPM disk, Linux Mint 18.3) this is the output:
  

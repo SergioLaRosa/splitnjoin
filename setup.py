@@ -12,7 +12,7 @@ except (IOError, ImportError):
 
 setup(
     name='splitnjoin',
-    version='0.66',
+    version='0.7',
     description='Simple module for splitting binary files into multiple chunks and viceversa (from chunks to original file)',
     long_description=long_description,
     url='https://github.com/SergioLaRosa/splitnjoin',

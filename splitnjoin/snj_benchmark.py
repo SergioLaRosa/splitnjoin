@@ -20,6 +20,7 @@ to_dir = "test"
 read_size = 250
 from_dir = "test"
 to_file = "joined_fake_data.bin"
+fake_size = 1000000000
 snj_ver = pkg_resources.get_distribution("splitnjoin").version
 print("[!]'splitnjoin' ver.", snj_ver, "Benchmark&Test tool\n")
 print('[+] Generating fake binary file of 1 GB...')
@@ -27,7 +28,21 @@ print('[+] Please, wait...')
 start = timer()
 try:
     with open(os.path.abspath(from_file), 'wb') as fout:
-        fout.write(os.urandom(1073741824))
+        try:
+            fout.write(os.urandom(fake_size))
+        except MemoryError:
+            print("[!] MemoryError: not enough RAM avalaible!")
+            print("[!] To continue: reduce filesizes by a factor (i.e: 0.25)")
+            try:
+                factor = float(input("[>]: "))
+            except ValueError:
+                print("[!] Wrong factor. Exit...")
+                sys.exit()
+            fake_size = int(fake_size * factor)
+            blocksize = int(blocksize * factor)
+            p_size = int(p_size * factor) 
+            read_size = int(read_size * factor)
+            fout.write(os.urandom(fake_size))
     end = timer()
     print("[+]", from_file, "written.")
     print('[+] Writing time: ', end - start)

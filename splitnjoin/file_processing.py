@@ -40,13 +40,13 @@ class FileProcessor:
         except OSError as os_err:
             logging.error(str(os_err))
         self._part_size = self._get_part_size(self._fstat.st_size, tot_parts)
-        self._split_file(from_file, self._part_size, to_dir)
+        self.__split_file(from_file, self._part_size, to_dir)
 
     def split_file_by_size(self, from_file, chunk_size, to_dir):
         self._real_size = self._get_chunk_size(chunk_size)
-        self._split_file(from_file, self._real_size, to_dir)
+        self.__split_file(from_file, self._real_size, to_dir)
 
-    def _split_file(self, from_file, chunk_size, to_dir):
+    def __split_file(self, from_file, chunk_size, to_dir):
         self._part_num = 0
         self._real_size = chunk_size
         if not os.path.exists(to_dir):
